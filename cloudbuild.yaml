@@ -1,11 +1,3 @@
 steps:
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  args:
-  - gcloud
-  - functions
-  - deploy
-  - helloWorld
-  - --region=us-central1
-  - --source=.
-  - --trigger-http
-  - --runtime=RUNTIME
+- name: 'gcr.io/myapp-ce183/firebase'
+  args: [ 'deploy', '--only', 'functions']
