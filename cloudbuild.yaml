@@ -1,3 +1,0 @@
-steps:
-- name: gcr.io/myapp-ce183/firebase
-  args: ['deploy', '--project=myapp-ce183', '--only=functions']
