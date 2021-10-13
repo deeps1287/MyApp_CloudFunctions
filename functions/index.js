@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const https = require("http");
 
 exports.helloWorld = functions.https.onRequest((req, res) => {
-  res.send("Hello from Firebase to Deepak !");
+  res.send("Hello from Firebase to Deepak / staging !");
 });
 
 exports.productSearch = functions.https.onRequest((request, response) => {
