@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "myapp-ce183",
-    "staging": "myapp-ce183",    
+    "default": "my-company-dev",
+    "staging": "my-company-dev",    
     "production": "myapp-prod-662d0"
   }
 }
