@@ -1,8 +1,11 @@
 const functions = require("firebase-functions");
 const https = require("http");
 
-exports.helloWorld = functions.https.onRequest((req, res) => {
+exports.helloWorld_CallbyHttp = functions.https.onRequest((req, res) => {
   res.send("{ \"title\": \"Hello from Firebase to Deepak-- - stag!\" }");
+});
+exports.helloWorld_CallbyApp = functions.https.onCall((data, context) => {
+  return {msg: "Hello from Firebase!"};
 });
 
 exports.productSearch = functions.https.onRequest((request, response) => {
