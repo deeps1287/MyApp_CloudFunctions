@@ -12,7 +12,7 @@ exports.hello_multiregion = functions
 exports.hello_multiregion_CALLbyApp = functions
     .region("asia-northeast1")
     .https.onCall((data, context) => {
-      return "Hello for multi region : hello_multiregion_CALLbyApp";
+      return "Hello for multi region : hello_multiregion_CALLbyApp ";
     });
 
 exports.helloWorld_CallbyHttp = functions.https.onRequest((req, res) => {
