@@ -1,11 +1,25 @@
 const functions = require("firebase-functions");
 const https = require("http");
 
+
+exports.hello_multiregion = functions
+    .region("asia-northeast1", "asia-northeast2")
+    .https.onRequest((req, res) => {
+      res.send("Hello for multi region");
+    });
+
+
+exports.hello_multiregion_CALLbyApp = functions
+    .region("asia-northeast1", "asia-northeast2")
+    .https.onCall((data, context) => {
+      return "Hello for multi region : hello_multiregion_CALLbyApp";
+    });
+
 exports.helloWorld_CallbyHttp = functions.https.onRequest((req, res) => {
   res.send("{ \"title\": \"Hello from Firebase to Deepak-- - stag!\" }");
 });
 exports.helloWorld_CallbyApp = functions.https.onCall((data, context) => {
-  return {msg: "Hello from Firebase!"};
+  return "Hello from firebase onCall";
 });
 
 exports.productSearch = functions.https.onRequest((request, response) => {
