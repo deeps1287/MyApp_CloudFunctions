@@ -1,25 +1,93 @@
 const functions = require("firebase-functions");
 const https = require("http");
 
+// ############## DUMMY LIVE ####################
+exports.getItems = functions.https.onRequest((request, response) => {
+  // var user = WL.Server.getActiveUser();
+  console.log(">> /rest2/fits/aitaiRequest/items/");
+  console.log("USER: ");
 
-exports.hello_multiregion = functions
-    .region("asia-northeast1", "asia-northeast2")
-    .https.onRequest((req, res) => {
-      res.send("Hello for multi region");
+  const data = {
+    UserMark: "USER",
+    Sdate: request.query.seriDate,
+    khkbn: request.query.khkbn,
+    baicd: request.query.baicd,
+    ebuncd: request.query.ebuncd,
+  };
+
+  const input = {
+    host: "quiet-wave-01307.herokuapp.com",
+    path: "/rest2/fits/aitaiRequest/items/items",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    json: true, // <--Very important!!!
+    body: JSON.stringify(data),
+  };
+
+  const req = https.request(input, function(res) {
+    const bodyChunks = [];
+    res.on("data", function(chunk) {
+      bodyChunks.push(chunk);
+    }).on("end", function() {
+      const body = Buffer.concat(bodyChunks);
+
+      response.writeHead(200, {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": body.length,
+      });
+
+      response.write(body);
+      response.end();
     });
+  });
+
+  req.on("error", function(e) {
+    console.log("ERROR: " + e.message);
+  });
+  // req.write(data);
+  req.end();
+});
 
 
-exports.hello_multiregion_CALLbyApp = functions
+// ############## APP BASE : DIRECT CALL FUNCTIONS ####################
+exports.CALLbyApp_central_only = functions
     .https.onCall((data, context) => {
-      return "Hello for multi region : hello_multiregion_CALLbyApp ";
+      return "Hello from : CALLbyApp_central_only ";
     });
 
-exports.helloWorld_CallbyHttp = functions.https.onRequest((req, res) => {
-  res.send("{ \"title\": \"Hello from Firebase to Deepak-- - stag!\" }");
-});
-exports.helloWorld_CallbyApp = functions.https.onCall((data, context) => {
-  return "Hello from firebase onCall";
-});
+exports.CALLbyApp_asia_only = functions
+    .region("asia-northeast1")
+    .https.onCall((data, context) => {
+      return "Hello from : CALLbyApp_asia_only ";
+    });
+
+exports.CALLbyApp_asia_central = functions
+    .region("asia-northeast1", "asia-northeast2", "us-central1")
+    .https.onCall((data, context) => {
+      return "Hello from : CALLbyApp_asia_central ";
+    });
+
+// ############## HTTP BASE : HTTP CALL FUNCTIONS ####################
+exports.CALLByHttp_central_only = functions
+    .https.onRequest((req, res) => {
+      res.send("Hello from --> CALLByHttp_central_only");
+    });
+
+exports.CALLByHttp_asia_only = functions
+    .region("asia-northeast1")
+    .https.onRequest((req, res) => {
+      res.send("Hello from --> CALLByHttp_asia_only");
+    });
+
+exports.CALLByHttp_asia_central = functions
+    .region("asia-northeast1", "asia-northeast2", "us-central1")
+    .https.onRequest((req, res) => {
+      res.send("Hello from CALLByHttp_asia_central");
+    });
+
+// ############## GENERAL ####################
 
 exports.productSearch = functions.https.onRequest((request, response) => {
   const UserMark=request.query.UserMark;
