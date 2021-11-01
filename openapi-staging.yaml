@@ -3,7 +3,7 @@ info:
   title: Cloud Endpoints + GCF
   description: Sample API on Cloud Endpoints with a Google Cloud Functions backend
   version: 1.0.0
-host: cloudrun-service-staging-3bp3kpkweq-an.a.run.app
+host: fajcloudtest.usindia.com
 schemes:
   - https
 produces:
@@ -21,3 +21,4 @@ paths:
           description: A successful response
           schema:
             type: string
+            

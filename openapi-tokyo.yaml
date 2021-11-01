@@ -1,0 +1,24 @@
+swagger: '2.0'
+info:
+  title: Cloud Endpoints + TOKYO
+  description: Sample API on Cloud Endpoints with a Google Cloud Functions backend + TOKYO REGION
+  version: 1.0.0
+host: cloudrun-service-tokyo-3bp3kpkweq-an.a.run.app
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /CALLByHttp_asia_central:
+    get:
+      summary: Greet a user
+      operationId: CALLByHttp_asia_central
+      x-google-backend:
+        address: https://asia-northeast1-myapp-ce183.cloudfunctions.net/CALLByHttp_asia_central
+        protocol: h2
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+            

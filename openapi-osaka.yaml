@@ -1,0 +1,24 @@
+swagger: '2.0'
+info:
+  title: Cloud Endpoints + Osaka
+  description: Sample API on Cloud Endpoints with a Google Cloud Functions backend + OSAKA REGION
+  version: 1.0.0
+host: cloudrun-service-osaka-3bp3kpkweq-dt.a.run.app
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /CALLByHttp_asia_central:
+    get:
+      summary: Greet a user
+      operationId: CALLByHttp_asia_central
+      x-google-backend:
+        address: https://asia-northeast2-myapp-ce183.cloudfunctions.net/CALLByHttp_asia_central
+        protocol: h2
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+            
